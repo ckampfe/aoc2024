@@ -1,7 +1,7 @@
 #!/usr/bin/env elixir
 
 defmodule Common do
-  def read_and_parse_inputs() do
+  def read_and_parse_inputs do
     "inputs/day2_1.txt"
     |> File.read!()
     |> String.trim()
