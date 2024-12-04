@@ -42,22 +42,22 @@ defmodule Part2 do
     parse(s, :enabled, <<>>)
   end
 
-  def parse(<<>>, _status, acc), do: acc
+  def parse(<<>>, _state, acc), do: acc
 
-  def parse(<<"do()", rest::binary>>, _status, acc) do
+  def parse(<<"do()", rest::binary>>, _state, acc) do
     parse(rest, :enabled, acc)
   end
 
-  def parse(<<"don't()", rest::binary>>, _status, acc) do
+  def parse(<<"don't()", rest::binary>>, _state, acc) do
     parse(rest, :disabled, acc)
   end
 
-  def parse(<<c::binary-1, rest::binary>>, :enabled, acc) do
-    parse(rest, :enabled, acc <> c)
+  def parse(<<c::binary-size(1), rest::binary>>, :enabled = state, acc) do
+    parse(rest, state, acc <> c)
   end
 
-  def parse(<<_c::binary-1, rest::binary>>, :disabled, acc) do
-    parse(rest, :disabled, acc)
+  def parse(<<_c::binary-size(1), rest::binary>>, :disabled = state, acc) do
+    parse(rest, state, acc)
   end
 end
 
