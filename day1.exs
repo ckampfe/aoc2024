@@ -3,7 +3,7 @@
 defmodule Part1 do
   def main do
     rows =
-      "inputs/day1_1.txt"
+      "inputs/day1.txt"
       |> File.read!()
       |> String.trim()
       |> String.split("\n")
@@ -29,10 +29,12 @@ defmodule Part1 do
   end
 end
 
+(Part1.main() == 2_375_403) |> IO.inspect()
+
 defmodule Part2 do
   def main do
     rows =
-      "inputs/day1_1.txt"
+      "inputs/day1.txt"
       |> File.read!()
       |> String.trim()
       |> String.split("\n")
@@ -63,4 +65,4 @@ defmodule Part2 do
   end
 end
 
-Part2.main() |> IO.inspect()
+(Part2.main() == 23_082_277) |> IO.inspect()

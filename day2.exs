@@ -2,7 +2,7 @@
 
 defmodule Common do
   def read_and_parse_inputs do
-    "inputs/day2_1.txt"
+    "inputs/day2.txt"
     |> File.read!()
     |> String.trim()
     |> String.split("\n")
