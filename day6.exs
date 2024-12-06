@@ -69,6 +69,22 @@ defmodule Common do
       :left -> :up
     end
   end
+
+  def next_position({x, y}, direction) do
+    case direction do
+      :up ->
+        {x, y - 1}
+
+      :right ->
+        {x + 1, y}
+
+      :down ->
+        {x, y + 1}
+
+      :left ->
+        {x - 1, y}
+    end
+  end
 end
 
 defmodule Part1 do
@@ -79,23 +95,10 @@ defmodule Part1 do
     walk(grid, start, :up, xy_to_position, MapSet.new([start])) |> Enum.count()
   end
 
-  def walk(grid, {x, y} = current_position, direction, xy_to_position, visited_positions) do
-    visited_positions = MapSet.put(visited_positions, {x, y})
+  def walk(grid, current_position, direction, xy_to_position, visited_positions) do
+    visited_positions = MapSet.put(visited_positions, current_position)
 
-    next_position =
-      case direction do
-        :up ->
-          {x, y - 1}
-
-        :right ->
-          {x + 1, y}
-
-        :down ->
-          {x, y + 1}
-
-        :left ->
-          {x - 1, y}
-      end
+    next_position = Common.next_position(current_position, direction)
 
     case xy_to_position.(next_position) do
       prefix_size when is_integer(prefix_size) ->
@@ -158,25 +161,12 @@ defmodule Part2 do
 
   def walk(
         grid,
-        {x, y} = current_position,
+        current_position,
         direction,
         xy_to_position,
         visited_obstructions
       ) do
-    next_position =
-      case direction do
-        :up ->
-          {x, y - 1}
-
-        :right ->
-          {x + 1, y}
-
-        :down ->
-          {x, y + 1}
-
-        :left ->
-          {x - 1, y}
-      end
+    next_position = Common.next_position(current_position, direction)
 
     case xy_to_position.(next_position) do
       prefix_size when is_integer(prefix_size) ->
